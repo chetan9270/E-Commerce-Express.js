@@ -1,9 +1,13 @@
+require("dotenv").config();
+
 const path = require("path")
 const express = require("express")
 const app = express()
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require('cookie-parser');
+
+const db = require("./config/mongooseConnection")
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -16,12 +20,17 @@ app.use(express.static(path.join(__dirname, "public")));
 let usermodel = require("./models/usermodel")
 let productmodel = require("./models/productmodel")
 
+let userRouter = require("./routes/userRouter")
+let ownerRouter = require("./routes/ownerRouter")
+let productRouter = require("./routes/productRouter")
 
 
-app.get("/",(req,res)=>{
-  res.send("<h1>chetan BAchhav<\h1>")
 
-})
+app.use("/product",productRouter)
+app.use("/user",userRouter)
+app.use("/owner",ownerRouter)
+
+
 
 
 
