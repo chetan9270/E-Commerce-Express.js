@@ -6,6 +6,8 @@ const app = express()
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require('cookie-parser');
+const session = require("express-session")
+const flash = require("connect-flash")
 
 const db = require("./config/mongooseConnection")
 
@@ -23,12 +25,23 @@ let productmodel = require("./models/productmodel")
 let userRouter = require("./routes/userRouter")
 let ownerRouter = require("./routes/ownerRouter")
 let productRouter = require("./routes/productRouter")
+let indexRoute = require("./routes/index")
+
+app.use(cookieParser());
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+app.use(flash())
 
 
 
 app.use("/product",productRouter)
 app.use("/user",userRouter)
 app.use("/owner",ownerRouter)
+app.use("/shop",indexRoute)
 
 
 

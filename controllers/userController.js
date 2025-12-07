@@ -63,5 +63,10 @@
   });
 }
 
+logout = (req,res)=>{
+  res.cookie("Token","")   // this is fine
+  res.redirect("/user/login-page")
+}
 
-module.exports = {RegisterController , loginController}
+
+module.exports = {RegisterController , loginController , logout}

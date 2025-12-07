@@ -2,6 +2,10 @@ const express = require("express")
 const router = express.Router()
 let ownermodel = require("../models/ownermodel")
 
+router.get("/",(req,res)=>{
+  res.render("owner-login")
+})
+
 if (process.env.NODE_ENV === "development") {
 
   router.post("/create", async (req, res) => {
@@ -27,5 +31,11 @@ if (process.env.NODE_ENV === "development") {
   });
 
 }
+
+router.get("/admin",(req,res)=>{
+  res.render("createproducts.ejs")
+})
+
+
 
 module.exports = router;
